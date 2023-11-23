@@ -1,0 +1,11 @@
+<div>
+  <input type="file" (change)="onFileSelected($event)" accept="image/*">
+</div>
+
+<div *ngIf="selectedFile">
+  <img [src]="getObjectUrl(selectedFile)" alt="Selected Image">
+</div>
+
+<button>
+  Generate Music
+</button>
