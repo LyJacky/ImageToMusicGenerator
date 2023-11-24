@@ -1,11 +1,46 @@
-<div>
-  <input type="file" (change)="onFileSelected($event)" accept="image/*">
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
-<div *ngIf="selectedFile">
-  <img [src]="getObjectUrl(selectedFile)" alt="Selected Image">
-</div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobius</title>
+  <!-- Add Bootstrap CSS link here -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-yQgEG1q3ZRlZ2OF+KZA6vb5BU5eXi0aBA7hjaaE53giEt49PbNvW5AIcB1cQPJ0Z" crossorigin="anonymous">
+  <!-- Add your custom CSS styles if needed -->
+</head>
 
-<button>
-  Generate Music!
-</button>
+<body>
+  <div class="container mt-5">
+    <header class="text-center mb-4">
+      <h1>Mobius</h1>
+    </header>
+
+    <p>This is a demo for the Mobius model, where it takes in an image and outputs music that would fit the following
+      image</p>
+
+    <div class="form-group">
+      <label for="imageInput">Select an image:</label>
+      <input type="file" class="form-control-file" id="imageInput" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+
+    <div *ngIf="selectedFile" class="mt-3">
+      <img [src]="getObjectUrl(selectedFile)" alt="Selected Image" class="img-fluid">
+    </div>
+
+    <button class="btn btn-primary mt-3">
+      Generate Music!
+    </button>
+  </div>
+
+  <!-- Add Bootstrap JS and Popper.js if needed -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-uee1yVH0V4STcE9T0lNyxAcpLXviGwE+r1UflrR6pLgC1SdhoqW8xITdyGdRtftj" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy9ad+ucggc2MKST5IZTFzgPH9ILjojbof" crossorigin="anonymous"></script>
+</body>
+
+</html>
