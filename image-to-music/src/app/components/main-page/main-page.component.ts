@@ -21,5 +21,8 @@ export class MainPageComponent {
     }
     return null;
   }
+  requestSong(event: any): void{
+
+  }
 }
 

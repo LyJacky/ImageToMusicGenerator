@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mobius</title>
-  <!-- Add Bootstrap CSS link here -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-yQgEG1q3ZRlZ2OF+KZA6vb5BU5eXi0aBA7hjaaE53giEt49PbNvW5AIcB1cQPJ0Z" crossorigin="anonymous">
-  <!-- Add your custom CSS styles if needed -->
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -51,7 +49,7 @@
       <img [src]="getObjectUrl(selectedFile)" alt="Selected Image" class="img-fluid">
     </div>
 
-    <button class="btn btn-primary mt-3">
+    <button class="btn btn-primary mt-3" onclick = "fun()" >
       Generate Music!
     </button>
   </div>

@@ -1,7 +1,7 @@
 import pandas as pd  # for lookup in annotation file
 from gradientai import Gradient
 import os
-def main():
+def to_musical():
     os.environ['GRADIENT_ACCESS_TOKEN'] = "bktKBlrC5iTcCARPyv48XbG3loO4Dsr8"
     os.environ['GRADIENT_WORKSPACE_ID'] = "248985c9-fe68-46b8-b9d5-b8dc76d9ed33_workspace"
     df = pd.read_csv('data/input.txt')
