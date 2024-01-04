@@ -3,12 +3,12 @@ import scipy
 import numpy as np
 
 
-def to_music():
+def to_music(text):
     processor = AutoProcessor.from_pretrained("facebook/musicgen-large")
     model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-large")
 
     inputs = processor(
-        text=["80s pop track with bassy drums and synth"],
+        text=[text],
         padding=True,
         return_tensors="pt",
     )

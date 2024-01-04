@@ -53,4 +53,4 @@ def to_musical():
       # new_model_adapter.delete()
 
 if __name__ == "__main__":
-    main()
+    to_musical()
