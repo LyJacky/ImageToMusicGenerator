@@ -11,10 +11,17 @@ export class MobiusMusicService {
   constructor(private http: HttpClient) {}
 
   // Example method to make a GET request
-  getData(): Observable<any> {
+  getData(data:any): Observable<any> {
     console.log("i went inside of here:")
     console.log(`${this.apiUrl}/api/data`)
-    return this.http.get(`${this.apiUrl}/api/data`);
+    console.log('FormData entries from the service:');
+    const formData: FormData = new FormData();
+    formData.append('image', data);
+    console.log('FormData properties:', formData);
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+    return this.http.post(`${this.apiUrl}/api/data`,formData);
   }
 
   // Example method to make a POST request

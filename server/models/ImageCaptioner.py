@@ -8,8 +8,6 @@ from transformers import BertTokenizer
 
 def make_captions():
     MAX_DIM = 299
-
-
     def under_max(image):
         if image.mode != 'RGB':
             image = image.convert("RGB")
