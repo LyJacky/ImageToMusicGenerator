@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 from transformers import BertTokenizer
 
-def make_captions():
+def make_captions(img):
     MAX_DIM = 299
     def under_max(image):
         if image.mode != 'RGB':
@@ -21,45 +21,15 @@ def make_captions():
 
         return image
 
-
-
-
-
     val_transform = tv.transforms.Compose([
         tv.transforms.Lambda(under_max),
         tv.transforms.ToTensor(),
         tv.transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
 
-
-
-
-
-    parser = argparse.ArgumentParser(description='Image Captioning')
-    parser.add_argument('--path', type=str, help='path to image', default="/Users/jacky/PycharmProjects/Thesis/catr/test_examples/child.jpeg")
-    parser.add_argument('--v', type=str, help='version', default='v3')
-    parser.add_argument('--checkpoint', type=str, help='checkpoint path', default=None)
-    args = parser.parse_args()
-    image_path = args.path
-    version = args.v
-    checkpoint_path = args.checkpoint
-
     config = Config()
-
-    if version == 'v1':
-        model = torch.hub.load('saahiluppal/catr', 'v1', pretrained=True)
-    elif version == 'v2':
-        model = torch.hub.load('saahiluppal/catr', 'v2', pretrained=True)
-    else:
-        model = torch.hub.load('saahiluppal/catr', 'v3', pretrained=True)
+    model = torch.hub.load('saahiluppal/catr', 'v3', pretrained=True)
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-
-    # start_token = tokenizer.convert_tokens_to_ids([tokenizer._cls_token])[0]
-    # end_token = tokenizer.convert_tokens_to_ids([tokenizer._sep_token])[0]
-
-    # image = Image.open(image_path)
-    # image = coco.val_transform(image)
-    # image = image.unsqueeze(0)
 
 
     def create_caption_and_mask(start_token, max_length):
@@ -71,26 +41,6 @@ def make_captions():
 
         return caption_template, mask_template
 
-
-    # caption, cap_mask = create_caption_and_mask(
-    #     start_token, config.max_position_embeddings)
-
-
-    # @torch.no_grad()
-    # def evaluate():
-    #     model.eval()
-    #     for i in range(config.max_position_embeddings - 1):
-    #         predictions = model(image, caption, cap_mask)
-    #         predictions = predictions[:, i, :]
-    #         predicted_id = torch.argmax(predictions, axis=-1)
-    #
-    #         if predicted_id[0] == 102:
-    #             return caption
-    #
-    #         caption[:, i+1] = predicted_id[0]
-    #         cap_mask[:, i+1] = False
-    #
-    #     return caption
 
     @torch.no_grad()
     def evaluate(image, caption, cap_mask):
@@ -108,13 +58,12 @@ def make_captions():
 
         return caption
     output_list = []
-    base_path = "/Users/jacky/PycharmProjects/Thesis/catr/test_examples/"
     for i in range(0,1):
         start_token = tokenizer.convert_tokens_to_ids([tokenizer._cls_token])[0]
         end_token = tokenizer.convert_tokens_to_ids([tokenizer._sep_token])[0]
         caption1, cap_mask1 = create_caption_and_mask(
             start_token, config.max_position_embeddings)
-        image1 = Image.open(base_path+str(i)+".png")
+        image1 = img
         image1 = val_transform(image1)
         image1 = image1.unsqueeze(0)
         output = evaluate(image1,caption1,cap_mask1)
@@ -122,6 +71,11 @@ def make_captions():
         output_list.append(result.capitalize())
     #result = tokenizer.decode(output[0], skip_special_tokens=True)
     print(output_list)
+    return output_list
+    # for i in output_list:
+    #     print(i)
 
-    for i in output_list:
-        print(i)
+
+if __name__ == "__main__":
+    img = Image.open("/Users/jacky/ImageToMusicGenerator/server/test_data/images/Screen Shot 2024-01-22 at 5.34.08 PM.png")
+    make_captions(img)

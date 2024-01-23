@@ -1,20 +1,20 @@
 import pandas as pd  # for lookup in annotation file
 from gradientai import Gradient
 import os
-def to_musical():
-    os.environ['GRADIENT_ACCESS_TOKEN'] = "bktKBlrC5iTcCARPyv48XbG3loO4Dsr8"
+def to_musical(caption):
+    os.environ['GRADIENT_ACCESS_TOKEN'] = "CU8eYAvpeWDPtehkN8WpnIdV0Ez21g6H"
     os.environ['GRADIENT_WORKSPACE_ID'] = "248985c9-fe68-46b8-b9d5-b8dc76d9ed33_workspace"
-    df = pd.read_csv('data/input.txt')
+    # df = pd.read_csv('data/input.txt')
     # Get img, caption columns
-    captions = df["caption"]
-    musical = df["musical"]
+    # captions = df["caption"]
+    # musical = df["musical"]
     # print(captions)
     # print(len(captions))
-    res = []
-    for i in range(1119,1219):
-        res.append({
-                       'inputs': "### Instructions: Can you briefly describe the type of music that would go well with this image caption?:" +
-                                 captions[i] + "\n\n### Response:" + musical[i]})
+    # res = []
+    # for i in range(1119,1219):
+    #     res.append({
+    #                    'inputs': "### Instructions: Can you briefly describe the type of music that would go well with this image caption?:" +
+    #                              captions[i] + "\n\n### Response:" + musical[i]})
 
     # print(res)
     with Gradient() as gradient:
@@ -24,15 +24,15 @@ def to_musical():
       # new_model_adapter = base_model.create_model_adapter(
       #     name="test model 3"
       # )
-      print(new_model_adapter)
-      print(f"Created model adapter with id {new_model_adapter.id}")
-      sample_query = "### Instruction: Can you describe the type of music that would fit this image caption: A library with people studying in them? \n\n### Response:"
-      print(f"Asking: {sample_query}")
+      # print(new_model_adapter)
+      # print(f"Created model adapter with id {new_model_adapter.id}")
+      sample_query = "### Instruction: Can you describe the type of music that would fit this image caption: "+caption+"? \n\n### Response:"
+      # print(f"Asking: {sample_query}")
 
       # before fine-tuning
       completion = new_model_adapter.complete(query=sample_query, max_generated_token_count=100).generated_output
-      print(f"Generated (before fine-tune): {completion}")
-
+      # print(f"Generated (before fine-tune): {completion}")
+      return completion
       # samples = res
       #
       # # this is where fine-tuning happens
@@ -53,4 +53,4 @@ def to_musical():
       # new_model_adapter.delete()
 
 if __name__ == "__main__":
-    to_musical()
+    to_musical("testing")
