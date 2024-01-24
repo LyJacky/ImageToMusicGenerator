@@ -23,13 +23,13 @@ def get_data():
         print('CAPTIONS: ', captions)
         musical_descriptions = generate_musical_description_from_caption(captions)
         print('MUSICAL DESCRIPTION: ', musical_descriptions)
-        audio_values,sampling_rate = generate_music_from_musical_captions("test4",musical_descriptions)
+        audio_values,sampling_rate = generate_music_from_musical_captions("test5",musical_descriptions)
         # generate_musical_description_from_caption("test4","modern pop parisian music")
         wav_buffer = io.BytesIO()
         wavfile.write(wav_buffer, rate=sampling_rate, data=audio_values)
         # Set the buffer position to the beginning
         wav_buffer.seek(0)
-        return send_file(wav_buffer, mimetype="audio/wav", as_attachment=True, download_name=f"test4.wav")
+        return send_file(wav_buffer, mimetype="audio/wav", as_attachment=True, download_name=f"test5.wav")
         # return jsonify({"res":"i went inside the if statment", 'size': [img.width,img.height]}), 200
     data = {"message": "Hello from Flask!"}
     return jsonify(data),200
