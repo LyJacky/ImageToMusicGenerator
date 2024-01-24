@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from models.CaptionsToMusic import to_musical
-from models.MusicGen import to_music
-from models.ImageCaptioner import make_captions
+from model.CaptionsToMusic import to_musical
+from model.MusicGen import to_music
+from model.ImageCaptioner import make_captions
 from PIL import Image
 import torch
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def get_data():
         print('I WENT INSIDE OF HERE')
         file = request.files['image']
         img = Image.open(file.stream)
-        img.show()
+        # img.show()
         print(to_musical("A picture of the eiffel tower at night"))
         print(generate_captions_from_image(img))
         # generate_musical_description_from_caption("test4","modern pop parisian music")

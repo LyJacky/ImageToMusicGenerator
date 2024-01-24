@@ -78,4 +78,5 @@ def make_captions(img):
 
 if __name__ == "__main__":
     img = Image.open("/Users/jacky/ImageToMusicGenerator/server/test_data/images/Screen Shot 2024-01-22 at 5.34.08 PM.png")
-    make_captions(img)
+    # make_captions(img)
+    torch.hub.load('saahiluppal/catr', 'v3', pretrained=True)
