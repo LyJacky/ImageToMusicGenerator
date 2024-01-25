@@ -9,6 +9,8 @@ import {MobiusMusicService} from "../../services/mobius-music-service/mobius-mus
 })
 export class MainPageComponent {
   selectedFile: File | null = null;
+  audioBlob: Blob | null = null;
+
   constructor(private _mobiusService: MobiusMusicService ) {}
   // ngOnInit(){
   //   this
@@ -34,11 +36,16 @@ export class MainPageComponent {
       // });
 
       let x = this._mobiusService.getData(this.selectedFile).subscribe(  data => {
-        console.log(data); // Handle the data here
+        const audioData = data;
+        this.audioBlob = new Blob([audioData], { type: 'audio/wav' });
+        this.updateAudioPlayer()
+        console.log("The data for the thing: "+data); // Handle the data here
+        console.log(data)
       },
       error => {
         console.error(error); // Handle errors here
       })
+      console.log("X is what hte this.movius serve get data is returning i think?: ")
       console.log(x)
     }
   }
@@ -51,6 +58,20 @@ export class MainPageComponent {
   }
   requestSong(event: any): void{
 
+  }
+  updateAudioPlayer() {
+    if (this.audioBlob) {
+      // Create a data URL from the Blob
+      const audioUrl = URL.createObjectURL(this.audioBlob);
+      console.log(' THE AUDIO URL IS :')
+      console.log(audioUrl)
+
+      // Set the audio URL to be used by the <audio> element
+      const audioPlayer = document.getElementById('audioPlayer') as HTMLAudioElement;
+      if (audioPlayer) {
+        audioPlayer.src = audioUrl;
+      }
+    }
   }
 }
 

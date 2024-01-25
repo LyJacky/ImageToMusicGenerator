@@ -21,7 +21,7 @@ export class MobiusMusicService {
     formData.forEach((value, key) => {
       console.log(key, value);
     });
-    return this.http.post(`${this.apiUrl}/api/data`,formData);
+    return this.http.post(`${this.apiUrl}/api/data`,formData, { responseType: 'arraybuffer' });
   }
 
   // Example method to make a POST request
