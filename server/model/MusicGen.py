@@ -1,4 +1,5 @@
-from transformers import AutoProcessor, MusicgenForConditionalGeneration
+from transformers import AutoProcessor,MusicgenForConditionalGeneration
+from transformers import pipeline
 import scipy
 import numpy as np
 
