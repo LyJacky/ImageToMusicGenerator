@@ -32,15 +32,6 @@ export class MainPageComponent {
     if (this.selectedFile){
       console.log("the selected file is :")
       console.log(this.selectedFile)
-      // const formData: FormData = new FormData();
-      // formData.append('image', this.selectedFile);
-      // console.log('FormData properties:', formData);
-
-      // Log FormData entries
-      // console.log('FormData entries:');
-      // formData.forEach((value, key) => {
-      //   console.log(key, value);
-      // });
       this.isLoading = true
       let x = this._mobiusService.getData(this.selectedFile).subscribe(  data => {
         this.isLoading = false
