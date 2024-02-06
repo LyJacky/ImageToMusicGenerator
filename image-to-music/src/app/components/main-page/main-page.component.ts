@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MobiusMusicService} from "../../services/mobius-music-service/mobius-music.service";
+import WaveSurfer from 'wavesurfer.js';
 
 @Component({
   selector: 'app-main-page',
@@ -10,11 +11,16 @@ import {MobiusMusicService} from "../../services/mobius-music-service/mobius-mus
 export class MainPageComponent {
   selectedFile: File | null = null;
   audioBlob: Blob | null = null;
-
+  private wavesurfer!: WaveSurfer;
+  protected audioUrl!: String;
   constructor(private _mobiusService: MobiusMusicService ) {}
-  // ngOnInit(){
-  //   this
-  // }
+  ngOnInit(){
+      this.wavesurfer = WaveSurfer.create({
+      container: '#audioVis', // The ID of your audio element
+      waveColor: 'violet',
+      progressColor: 'purple',
+    });
+  }
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     this.selectedFile = file;
@@ -56,15 +62,15 @@ export class MainPageComponent {
     }
     return null;
   }
-  requestSong(event: any): void{
 
-  }
   updateAudioPlayer() {
     if (this.audioBlob) {
       // Create a data URL from the Blob
       const audioUrl = URL.createObjectURL(this.audioBlob);
       console.log(' THE AUDIO URL IS :')
       console.log(audioUrl)
+      this.wavesurfer.load(audioUrl)
+      this.audioUrl = audioUrl
 
       // Set the audio URL to be used by the <audio> element
       const audioPlayer = document.getElementById('audioPlayer') as HTMLAudioElement;
@@ -72,6 +78,14 @@ export class MainPageComponent {
         audioPlayer.src = audioUrl;
       }
     }
+  }
+    playAudio(): void {
+    // Play the loaded audio when the "Play" button is clicked
+    this.wavesurfer.play();
+  }
+   pauseAudio(): void {
+    // Pause the audio playback when the "Pause" button is clicked
+    this.wavesurfer.pause();
   }
 }
 

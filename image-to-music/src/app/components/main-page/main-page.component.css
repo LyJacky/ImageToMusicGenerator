@@ -22,7 +22,7 @@
 
     .navbar-transparent .navbar-brand,
     .navbar-transparent .navbar-nav .nav-link {
-        color: #333 !important; /* Adjust text color as needed */
+        color: white !important; /* Adjust text color as needed */
     }
 
     /* Optional: Change the text color on hover */
@@ -71,3 +71,109 @@ header h1 {
       background-color: rgba(225, 225, 225, 0.2); /* Adjust the alpha value for transparency */
       position: relative;
     }
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+input[type="file"] {
+  position: relative;
+}
+
+input[type="file"]::file-selector-button {
+  width: 136px;
+  color: transparent;
+}
+
+/* Faked label styles and icon */
+input[type="file"]::before {
+  position: absolute;
+  pointer-events: none;
+  top: 10px;
+  left: 16px;
+  height: 20px;
+  width: 20px;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+}
+
+input[type="file"]::after {
+  position: absolute;
+  pointer-events: none;
+  top: 11px;
+  left: 40px;
+  color: #0964b0;
+  content: "Upload File";
+}
+
+/* ------- From Step 1 ------- */
+
+/* file upload button */
+input[type="file"]::file-selector-button {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  transition: background-color 200ms;
+}
+
+/* file upload button hover state */
+input[type="file"]::file-selector-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* file upload button active state */
+input[type="file"]::file-selector-button:active {
+  background-color: #e5e7eb;
+}
+
+input[type="file"]::file-selector-button:active {
+  background-color: #e5e7eb;
+}
+input[type="file"] {
+  position: relative;
+  outline: none;
+  padding: 4px;
+  margin: -4px;
+}
+
+input[type="file"]:focus-within::file-selector-button,
+input[type="file"]:focus::file-selector-button {
+  outline: 2px solid #0964b0;
+  outline-offset: 2px;
+}
+footer {
+  color: #888;
+  padding: 10px 0;
+  text-align: center;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.app-root-content {
+  padding-bottom: 25%
+}
+.mini-images{
+  margin-top:10px;
+}
+.mini-images img {
+  width: 50px;
+  margin: 0 5px;
+}

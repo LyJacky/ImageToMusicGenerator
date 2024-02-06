@@ -10,7 +10,9 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-transparent nav">
+
+<div class="split-background">
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-transparent nav">
     <b class="navbar-brand" href="#">Mobius</b>
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
         <!-- Left side elements -->
@@ -37,24 +39,22 @@
         </ul>
     </div>
 </nav>
-<div class="split-background">
-
 
 </div>
 
-  <div class="container mt-5" >
+  <div class="container mt-5 app-root-content" >
     <header class="row mb-4"style="margin-top: -250px;">
       <h1>Music Generator </h1>
       <h1>For Images and Videos</h1>
     </header>
 
-    <p>This is a demo for the Mobius model, where it takes in an image and outputs music that would fit the following
-      image</p>
 
     <div class="row">
       <div class="col-md-6">
+            <p>This is a demo for the Mobius model, where it takes in an image and outputs music that would fit the following
+      image</p>
         <div class="form-group">
-          <label for="imageInput">Select an image:</label>
+          <label for="imageInput" style="margin-right: 10px;">Select an image:</label>
           <input type="file" class="form-control-file" id="imageInput" (change)="onFileSelected($event)" accept="image/*">
         </div>
 
@@ -66,15 +66,35 @@
           Generate Music!
         </button>
       </div>
-
-      <div class="col-md-6">
-        <audio id="audioPlayer" controls class="mt-md-4">
-          Your browser does not support the audio element.
-        </audio>
+<!--<div class="col-md-6" style="border: 2px solid #ccc; padding: 10px;">-->
+      <div class="col-md-6" >
+        <div id="audioVis" controls class="mt-md-4" style="border: 2px solid #ccc; padding: 10px;">
+        </div>
+<!--        <audio id="audioPlayer" controls class="mt-md-4">-->
+<!--          Your browser does not support the audio element.-->
+<!--        </audio>-->
+        <button class="btn btn-primary mt-md-4" (click)="playAudio()" [disabled]="!audioUrl" style="margin-right: 10px;">
+          Play
+        </button>
+        <button class="btn btn-primary mt-md-4" (click)="pauseAudio()" [disabled]="!audioUrl">
+          Pause
+        </button>
       </div>
     </div>
 
   </div>
+
+<<footer class="custom_footer">
+<!--  <p> 2024 Mobius, All rights reserved</p>-->
+  <div class="mini-images">
+    <span> Built with </span>
+    <span>Angular</span>
+    <img src="../../../assets/images/AngularLogo.png" alt="Angular Logo">
+    <span> and </span>
+    <span>Python</span>
+    <img src="../../../assets/images/PythonLogo.png" alt="Python Logo">
+  </div>
+</footer>
 
   <!-- Add Bootstrap JS and Popper.js if needed -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
