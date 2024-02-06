@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
-
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
-  providers: [MobiusMusicService],
+  providers: [MobiusMusicService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

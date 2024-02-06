@@ -11,6 +11,7 @@ import WaveSurfer from 'wavesurfer.js';
 export class MainPageComponent {
   selectedFile: File | null = null;
   audioBlob: Blob | null = null;
+  isLoading = false;
   private wavesurfer!: WaveSurfer;
   protected audioUrl!: String;
   constructor(private _mobiusService: MobiusMusicService ) {}
@@ -40,8 +41,9 @@ export class MainPageComponent {
       // formData.forEach((value, key) => {
       //   console.log(key, value);
       // });
-
+      this.isLoading = true
       let x = this._mobiusService.getData(this.selectedFile).subscribe(  data => {
+        this.isLoading = false
         const audioData = data;
         this.audioBlob = new Blob([audioData], { type: 'audio/wav' });
         this.updateAudioPlayer()
