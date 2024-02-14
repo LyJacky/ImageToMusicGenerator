@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
-from model.CaptionsToMusic import to_musical
-from model.MusicGen import to_music
-from model.ImageCaptioner import make_captions
+# from model.CaptionsToMusic import to_musical
+# from model.MusicGen import to_music
+# from model.ImageCaptioner import make_captions
+from ..model import CaptionsToMusic
+from ..model import MusicGen
+from ..model import ImageCaptioner
 from PIL import Image
 import io
 import scipy.io.wavfile as wavfile
@@ -13,9 +16,26 @@ CORS(app)
 @app.route('/api/data', methods=['POST'])
 def get_data():
     # Your logic to fetch data from the database or other sources
+    multiple = False
     if request.files:
         file = request.files['image']
         img = Image.open(file.stream)
+        if 'image1' in request.files:
+            image1 = request.files['image1']
+            # Process image1
+
+        # Check if 'image2' is present in the request
+        if 'image2' in request.files:
+            multiple = True
+            image2 = request.files['image2']
+            image3 = request.files['image3']
+            # Process image2
+
+        if multiple:
+            captions1 = generate_captions_from_image(image1)
+            captions2 = generate_captions_from_image(image2)
+            captions3 = generate_captions_from_image(image3)
+
         captions = generate_captions_from_image(img)
         print('CAPTIONS: ', captions)
         musical_descriptions = generate_musical_description_from_caption(captions)
@@ -31,13 +51,13 @@ def get_data():
     return jsonify(data),200
 
 def generate_music_from_musical_captions(musical_descriptions,title):
-    return to_music(musical_descriptions,title)
+    return MusicGen.to_music(musical_descriptions,title)
 
 def generate_musical_description_from_caption(caption):
-    return to_musical(caption)
+    return CaptionsToMusic.to_musical(caption)
 
 def generate_captions_from_image(img):
-    return make_captions(img)[0]
+    return ImageCaptioner.make_captions(img)[0]
 
 
 if __name__ == '__main__':

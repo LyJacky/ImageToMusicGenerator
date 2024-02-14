@@ -14,7 +14,7 @@
 <!--<div class="overlay">-->
   <div class="split-background">
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-transparent nav">
-    <b class="navbar-brand" href="#">Mobius</b>
+    <b class="navbar-brand" href="#" style="font-family: 'Ballet', cursive">Mobius</b>
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
         <!-- Left side elements -->
         <ul class="navbar-nav">
@@ -45,13 +45,10 @@
   <mat-spinner></mat-spinner>
 </div>
 
-<!--  <div class="spinner-container">-->
-<!--  <mat-spinner diameter="50"></mat-spinner>-->
-<!--</div>-->
 </div>
 
   <div class="container mt-5 app-root-content" >
-    <header class="row mb-4"style="margin-top: -250px;">
+    <header class="row mb-4"style="margin-top: -650px;">
       <h1>Music Generator </h1>
       <h1>For Images and Videos</h1>
     </header>
@@ -63,7 +60,7 @@
       image</p>
         <div class="form-group">
           <label for="imageInput" style="margin-right: 10px;">Select an image:</label>
-          <input type="file" class="form-control-file" id="imageInput" (change)="onFileSelected($event)" accept="image/*">
+          <input type="file" class="form-control-file" id="imageInput" (change)="onFileSelected($event)" accept="image/*, video/mp4">
         </div>
 
         <div *ngIf="selectedFile" class="mt-3">
@@ -72,6 +69,9 @@
 
         <button class="btn btn-primary mt-md-4" (click)="fun()">
           Generate Music!
+        </button>
+        <button class="btn btn-primary mt-md-4" (click)="getFrames()">
+          Testing Button For video
         </button>
       </div>
       <div class="col-md-6" >

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MobiusMusicService} from "../../services/mobius-music-service/mobius-music.service";
 import WaveSurfer from 'wavesurfer.js';
+import {NULL_AS_ANY} from "@angular/compiler-cli/src/ngtsc/typecheck/src/expression";
 
 @Component({
   selector: 'app-main-page',
@@ -28,6 +29,7 @@ export class MainPageComponent {
 
     // You can also
   }
+  //if the file is a video then do a method
   fun(): void{
     if (this.selectedFile){
       console.log("the selected file is :")
@@ -80,5 +82,54 @@ export class MainPageComponent {
     // Pause the audio playback when the "Pause" button is clicked
     this.wavesurfer.pause();
   }
+    getFrames(): Promise<HTMLImageElement[]> {
+    return new Promise<HTMLImageElement[]>((resolve, reject) => {
+        const video = document.createElement('video');
+        video.preload = 'metadata';
+        video.onloadedmetadata = async () => {
+            const duration = video.duration;
+            const timestamps = [0, duration / 2, duration];
+
+            const frames: HTMLImageElement[] = [];
+            for (const timestamp of timestamps) {
+                video.currentTime = timestamp;
+                await new Promise<void>(resolve => {
+                    video.onseeked = () => resolve();
+                });
+
+                const canvas = document.createElement('canvas');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const context = canvas.getContext('2d');
+                context!.drawImage(video,  canvas.width, canvas.height);
+
+                const img = new Image();
+                img.src = canvas.toDataURL('image/png');
+                console.log("this is the image testing");
+                console.log(img);
+
+                frames.push(img);
+            }
+
+            resolve(frames);
+        };
+
+        video.onerror = () => reject(new Error('Failed to load video'));
+
+        // console.log('IS THIS TRUE OR FASLE');
+        // console.log(this.selectedFile);
+        // console.log(this.selectedFile === null);
+        if (this.selectedFile !== null) {
+            // const blob = new Blob([selectedFile], { type: selectedFile.type });
+            console.log('I FUCKIN WENT IN THERE')
+            console.log('I WANNA SEE IF THE VIDEO STARTS WITH THE VIDEO THINGY')
+            console.log(this.selectedFile.type.startsWith('video/'))
+            video.src = URL.createObjectURL(this.selectedFile);
+        } else {
+            // Handle the case where selectedFile is null
+          console.log('WELP II FAILED')
+        }
+    });
+}
 }
 

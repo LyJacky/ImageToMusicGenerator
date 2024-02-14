@@ -3,6 +3,7 @@ from flask_cors import CORS
 from model.CaptionsToMusic import to_musical
 from model.MusicGen import to_music
 from model.ImageCaptioner import make_captions
+from model.ThreeToOneSentence import combine_to_one
 from PIL import Image
 import io
 import scipy.io.wavfile as wavfile
@@ -14,9 +15,35 @@ CORS(app)
 def get_data():
     # Your logic to fetch data from the database or other sources
     if request.files:
-        file = request.files['image']
-        img = Image.open(file.stream)
-        captions = generate_captions_from_image(img)
+        multiple = False
+        # file = request.files['image']
+        # img = Image.open(file.stream)
+        if 'image1' in request.files:
+            img1 = request.files['image1']
+            image1 = Image.open(img1.stream)
+            print(image1)
+            # Process image1
+
+        # Check if 'image2' is present in the request
+        if 'image2' in request.files:
+            multiple = True
+            img2 = request.files['image2']
+            img3 = request.files['image3']
+            image2 = Image.open(img2.stream)
+            image3 = Image.open(img3.stream)
+
+            # Process image2
+
+        if multiple:
+            print('THE IMAGE 1 IS SUPPOSED TO BE')
+            print(image1)
+            captions1 = generate_captions_from_image(image1)
+            captions2 = generate_captions_from_image(image2)
+            captions3 = generate_captions_from_image(image3)
+            concat = captions1 +captions2 + captions3
+            captions = combine_to_one(concat)
+        else:
+            captions = generate_captions_from_image(image1)
         print('CAPTIONS: ', captions)
         musical_descriptions = generate_musical_description_from_caption(captions)
         print('MUSICAL DESCRIPTION: ', musical_descriptions)
