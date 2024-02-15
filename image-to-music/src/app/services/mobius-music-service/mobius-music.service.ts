@@ -70,36 +70,36 @@ export class MobiusMusicService {
     return this.http.post(`${this.apiUrl}/data`, data);
   }
 
-  getFrames(videoFile: File): Promise<File[]> {
+ getFrames(videoFile: File): Promise<File[]> {
     return new Promise<File[]>((resolve, reject) => {
         const video = document.createElement('video');
         video.preload = 'metadata';
         video.onloadedmetadata = async () => {
             const duration = video.duration;
-            const timestamps = [0, duration / 2,duration];
+            const timestamps = [0, duration / 2, duration];
 
             const frames: File[] = [];
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            if (!context) {
+                reject(new Error('Canvas context is not available'));
+                return;
+            }
+
             for (const timestamp of timestamps) {
                 video.currentTime = timestamp;
                 await new Promise<void>(resolve => {
                     video.onseeked = () => resolve();
                 });
 
-                const canvas = document.createElement('canvas');
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
-                // const context = canvas.getContext('2d');
-                // context!.drawImage(video,  canvas.width, canvas.height);
+                context.drawImage(video, 0, 0);
 
-                // const img = new Image();
-                // img.src = canvas.toDataURL('image/png');
-                // frames.push(img);
-                const blobPromise = new Promise<Blob | null>(resolve => {
-                    canvas.toBlob(resolve, 'image/png');
-                });
-                const blob = await blobPromise;
+                const dataUrl = canvas.toDataURL('image/png');
+                const blob = await fetch(dataUrl).then(res => res.blob());
 
-                // If a blob was generated, create a File object and add it to frames
                 if (blob) {
                     const file = new File([blob], `frame_${timestamp}.png`, { type: 'image/png' });
                     frames.push(file);
@@ -113,6 +113,7 @@ export class MobiusMusicService {
         video.src = URL.createObjectURL(videoFile);
     });
 }
+
 }
 // function extractFramesFromVideo(videoFile: File): Promise<HTMLImageElement[]> {
 //     return new Promise((resolve, reject) => {

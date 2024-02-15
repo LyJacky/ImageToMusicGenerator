@@ -19,8 +19,10 @@ def get_data():
         # file = request.files['image']
         # img = Image.open(file.stream)
         if 'image1' in request.files:
+            # rename to file
             img1 = request.files['image1']
             image1 = Image.open(img1.stream)
+            image1.show()
             print(image1)
             # Process image1
 
@@ -31,6 +33,8 @@ def get_data():
             img3 = request.files['image3']
             image2 = Image.open(img2.stream)
             image3 = Image.open(img3.stream)
+            image2.show()
+            image3.show()
 
             # Process image2
 
@@ -40,7 +44,7 @@ def get_data():
             captions1 = generate_captions_from_image(image1)
             captions2 = generate_captions_from_image(image2)
             captions3 = generate_captions_from_image(image3)
-            concat = captions1 +captions2 + captions3
+            concat = captions1 + captions2 + captions3
             captions = combine_to_one(concat)
         else:
             captions = generate_captions_from_image(image1)
