@@ -115,10 +115,6 @@ export class MainPageComponent {
         };
 
         video.onerror = () => reject(new Error('Failed to load video'));
-
-        // console.log('IS THIS TRUE OR FASLE');
-        // console.log(this.selectedFile);
-        // console.log(this.selectedFile === null);
         if (this.selectedFile !== null) {
             // const blob = new Blob([selectedFile], { type: selectedFile.type });
             console.log('I FUCKIN WENT IN THERE')
@@ -131,5 +127,17 @@ export class MainPageComponent {
         }
     });
 }
+  isImage() :boolean{
+    if(!(this.selectedFile) || this.selectedFile.type.startsWith('image/')){
+      return true
+    }
+    return false
+  }
+  isVideo() :boolean{
+    if(!(this.selectedFile) || this.selectedFile.type.startsWith('video/')){
+          return true
+        }
+    return false
+  }
 }
 

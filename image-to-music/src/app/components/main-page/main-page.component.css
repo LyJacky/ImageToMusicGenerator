@@ -208,3 +208,9 @@ footer {
   background-color: rgba(0, 0, 0, 0.5); /* Grey color with 50% opacity */
   z-index: 9999; /* Ensure it covers all other content */
 }
+.video-fluid {
+  max-width: 100%;
+  border: 1px solid #ccc; /* Adjust the border size as needed */
+  border-radius: 5px; /* Optional: Add rounded corners to the video */
+  box-sizing: border-box; /* Ensure border size is included in the element's dimensions */
+}
